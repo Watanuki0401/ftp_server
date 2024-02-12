@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  ftp-server:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "21:21"
+      - "60001-60010:60001-60010"
+    tty: true
