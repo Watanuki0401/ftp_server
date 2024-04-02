@@ -5,6 +5,10 @@ services:
     build:
       context: .
       dockerfile: dockerfile
+    volumes:
+      - type: bind
+        source: ./logs
+        target: /var/log
     ports:
       - "21:21"
       - "60001-60010:60001-60010"

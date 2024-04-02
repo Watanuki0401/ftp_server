@@ -71,12 +71,13 @@ read -p "What permission do you use?(default:022): " umask
 # --------------------
 # use_localtime=YES
 # --------------------
-read -p "Do you use localtime stamp?(y/n) :" local_time
+read -p "Do you use localtime stamp?(y/n): " local_time
 
 # use FTP command?
 # ------------------
 # write_enable=YES
 # ------------------
+read -p "Use FTP commands?(y/n): " write_en 
 
 # take logs?
 # ------------------------ 
@@ -84,30 +85,49 @@ read -p "Do you use localtime stamp?(y/n) :" local_time
 # log_ftp_protocol=YES
 # xferlog_std_format=NO
 # ------------------------
+read -p "Take log?(y/n): " logger
 
 # session life
 # --------------------------
 # idle_session_timeout=600
 # --------------------------
+read -p "Session timeout seconds.(def:300): " session_timeout
 
 # transport data life
 # ----------------------------
 # data_connection_timeout=60
 # ----------------------------
+read -p "Connection timeout seconds.(def:300)" connect_timeout
 
 # use passive mode connection
 # -----------------
 # pasv_enable=YES
 # -----------------
+read -p "Enable Passive mode access?(y/n): " pasv_mode_en
 
 # PASV mode: useing ports
 # ---------------------
 # pasv_min_port=60001
 # pasv_max_port=60010
 # ---------------------
+if [ "$pasv_mode_en" = "y" ]; then
+    read -p "use port number?(Syntax: min max): " min_port max_port
+fi
 
 # ASCII mangling is a horrible feature of the protocol.
 # ---------------------------
 # ascii_upload_enable=YES
 # ascii_download_enable=YES
 # ---------------------------
+
+
+touch ./vsftpd/vsftpd.conf
+
+# mode select
+if [ "$mode" = "4" ]; then
+    echo "listen=YES\nlisten_ipv6=NO\n" >> ./vsftpd/vsftpd.conf
+elif [ "$mode" = "6" ]; then
+    echo "listen=NO\nlisten_ipv6=YES\n" >> ./vsftpd/vsftpd.conf
+else
+    echo "error"
+fi
