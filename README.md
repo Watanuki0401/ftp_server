@@ -18,3 +18,8 @@ use tool - docker
 # 補足
 createconf.shにてvsftpd.confの生成を行えます。
 なお全パラメータの設定は完成しておりませんのでご了承ください。
+
+## memo
+chroot_list - chroot jailを使用しないユーザリスト
+user_list - ログインに関するホワイトリスト、ブラックリスト
+ftpusers - 強制ブラックリスト（どんな設定時にでもログインを拒否するユーザ集）
